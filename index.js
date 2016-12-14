@@ -8,10 +8,10 @@ module.exports = function(opts) {
   var headerKey = opts.headerKey || 'Bearer'
   var reqKey = opts.reqKey || 'token'
 
-  return function *(next) {
+  return function (ctx, next) {
     var token, err
 
-    var r = this.request
+    var r = ctx.request
 
     var query = r.query
     var body = r.body
@@ -41,12 +41,12 @@ module.exports = function(opts) {
     // RFC6750 states the access_token MUST NOT be provided
     // in more than one place in a single request.
     if (err) {
-      this.throw(400, 'token_invalid', {
+      ctx.throw(400, 'token_invalid', {
         message: 'access_token MUST NOT be provided in more than one place'
       })
     } else {
       r[reqKey] = token
-      yield next
+      next();
     }
 
   }

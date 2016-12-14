@@ -9,17 +9,16 @@ var token = '1234567890abcdefghijk'
 
 describe('koa-bearer-token', function() {
   beforeEach(function() {
-    app = koa()
+    app = new koa()
 
     app.use(bodyParser())
     app.use(bearerToken())
 
-    app.use(function *() {
-      console.log('this.request.token', this.request.token)
-      if (this.request.token) {
-        this.body = this.request.token
+    app.use(function (ctx) {
+      if (ctx.request.token) {
+        ctx.body = ctx.request.token
       } else {
-        this.body = 'undefined'
+        ctx.body = 'undefined'
       }
     })
   })

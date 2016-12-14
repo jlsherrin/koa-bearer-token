@@ -6,14 +6,14 @@
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Dependency Status][david_img]][david_site]
 
-> Bearer token parser middleware for koa
+> Bearer token parser middleware for koa 2
 
 Inspired by [express-bearer-token](https://www.npmjs.com/package/express-bearer-token)
 
 ## Install
 
 ```sh
-$ npm install koa-bearer-token
+$ npm install koa-bearer-token@next
 ```
 
 ## Usage
@@ -22,15 +22,15 @@ Use with `koa-bodyparser`
 
 ```js
 var koa = require('koa')
-var app = koa()
+var app = new koa()
 var bodyParser = require('koa-bodyparser');
 var bearerToken = require('koa-bearer-token')
 
 app.use(bodyParser())
 app.use(bearerToken())
 
-app.use(function *() {
-  // this.request.token
+app.use(function (ctx) {
+  // ctx.request.token
 })
 ```
 
